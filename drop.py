@@ -1,9 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import optparse
 from chest import robot
-from config import CURATOR_TOKEN
 
 if __name__ == "__main__":
-    robot = robot.Robot(CURATOR_TOKEN)
-    robot.start()
+    parser = optparse.OptionParser(usage="Usage: %prog -t [TOKEN]")
+
+    parser.add_option("-t", "--token", action="store", dest="token", help="Enter token for request curator api")
+
+    (options, args) = parser.parse_args()
+
+    if options.token:
+        robot = robot.Robot(options.token)
+        robot.start()
+    else:
+        parser.print_help()
