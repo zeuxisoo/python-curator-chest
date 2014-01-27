@@ -8,11 +8,14 @@ if __name__ == "__main__":
     parser = optparse.OptionParser(usage="Usage: %prog -t [TOKEN]")
 
     parser.add_option("-t", "--token", action="store", dest="token", help="Token for request curator api")
+    parser.add_option("-w", "--worker", action="store", dest="worker", help="Worker number, default is 2")
 
     (options, args) = parser.parse_args()
 
     if options.token:
+        woker_number = int(options.worker if options.worker else 2)
+
         robot = robot.Robot(options.token)
-        robot.start()
+        robot.start(woker_number=woker_number)
     else:
         parser.print_help()
