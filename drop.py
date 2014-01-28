@@ -15,7 +15,8 @@ if __name__ == "__main__":
 
     if options.token:
         robot = robot.Robot(options.token)
+        robot.worker(options.worker)
         robot.output(options.output)
-        robot.start(woker_number=options.worker)
+        robot.start()
     else:
         parser.print_help()

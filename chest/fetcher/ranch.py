@@ -11,6 +11,9 @@ class Ranch(object):
         self.robot         = robot
         self.curator       = curator
 
+    def worker(self, worker):
+        self.worker = worker
+
     def output(self, output):
         self.output = output
 
@@ -27,8 +30,8 @@ class Ranch(object):
 
         self.stream_result_queue.join()
 
-    def start_worker(self, number_):
-        for no in range(number_):
+    def start_worker(self):
+        for no in range(self.worker):
             worker = StreamWorker(self.robot, no, self.stream_result_queue)
             worker.output(self.output)
             worker.setDaemon(True)
