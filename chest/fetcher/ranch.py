@@ -7,9 +7,10 @@ class Ranch(object):
 
     stream_result_queue = Queue()
 
-    def __init__(self, robot, curator):
-        self.robot   = robot
-        self.curator = curator
+    def __init__(self, robot, curator, out_directory):
+        self.robot         = robot
+        self.curator       = curator
+        self.out_directory = out_directory
 
     def work(self, page=1):
         stream = self.curator.stream(page=page)
@@ -26,6 +27,6 @@ class Ranch(object):
 
     def start_worker(self, number_):
         for no in range(number_):
-            worker = StreamWorker(self.robot, no, self.stream_result_queue)
+            worker = StreamWorker(self.robot, no, self.stream_result_queue, self.out_directory)
             worker.setDaemon(True)
             worker.start()

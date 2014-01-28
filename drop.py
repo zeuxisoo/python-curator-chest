@@ -9,11 +9,12 @@ if __name__ == "__main__":
 
     parser.add_option("-t", "--token", action="store", dest="token", help="Token for request curator api")
     parser.add_option("-w", "--worker", action="store", dest="worker", default=2, type="int", help="Worker number, default is 2")
+    parser.add_option("-o", "--out", action="store", dest="out", default="out", help="Store directory, default is out")
 
     (options, args) = parser.parse_args()
 
     if options.token:
         robot = robot.Robot(options.token)
-        robot.start(woker_number=options.worker)
+        robot.start(woker_number=options.worker, out_directory=options.out)
     else:
         parser.print_help()
