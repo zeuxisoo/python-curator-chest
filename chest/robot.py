@@ -26,10 +26,14 @@ class Robot(object):
 
         self.logger = logger
 
-    def start(self, woker_number=2, out_directory="out"):
+    def output(self, output):
+        self.output = output
+
+    def start(self, woker_number=2):
         curator = Curator(self, self.token)
 
-        ranch = Ranch(self, curator, out_directory)
+        ranch = Ranch(self, curator)
+        ranch.output(self.output)
         ranch.start_worker(woker_number)
         ranch.work()
 

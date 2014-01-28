@@ -6,13 +6,15 @@ from threading import Thread
 
 class StreamWorker(Thread):
 
-    def __init__(self, robot, no, queue, out_directory):
+    def __init__(self, robot, no, queue):
         Thread.__init__(self)
 
-        self.robot         = robot
-        self.no            = no
-        self.queue         = queue
-        self.out_directory = out_directory
+        self.robot = robot
+        self.no    = no
+        self.queue = queue
+
+    def output(self, output):
+        self.output = output
 
     def run(self):
         while True:
@@ -20,9 +22,9 @@ class StreamWorker(Thread):
 
             image_src = stream_result['image']
             extension  = os.path.splitext(image_src)[1]
-            save_path  = "{0}/{1}{2}".format(self.out_directory, stream_result['id'], extension)
+            save_path  = "{0}/{1}{2}".format(self.output, stream_result['id'], extension)
 
-            self.mkdir(self.out_directory)
+            self.mkdir(self.output)
             self.save(save_path, image_src)
             self.queue.task_done()
 
