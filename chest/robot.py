@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import logging
 from curator import Curator
 from fetcher import Ranch
@@ -30,7 +31,7 @@ class Robot(object):
         self.worker = worker
 
     def output(self, output):
-        self.output = output
+        self.output = os.path.realpath(output)
 
     def start(self):
         self.logger.debug("Worker: {0}".format(self.worker))
