@@ -21,6 +21,8 @@ class Ranch(object):
         stream = self.curator.stream(page=page)
 
         for result in stream['results']:
+            self.robot.logger.debug("Queueing ==> {0} ==> {1}".format(result['id'], result['name'].encode("UTF-8")))
+
             self.stream_result_queue.put(result)
 
         # if stream['next']:
