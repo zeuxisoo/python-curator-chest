@@ -4,5 +4,6 @@
 *.db
 
 venv
+output
 
 config.py
