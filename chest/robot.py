@@ -33,6 +33,9 @@ class Robot(object):
         self.output = output
 
     def start(self):
+        self.logger.debug("Worker: {0}".format(self.worker))
+        self.logger.debug("Output: {0}".format(self.output))
+
         curator = Curator(self, self.token)
 
         ranch = Ranch(self, curator)
