@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import errno
 import requests
 from threading import Thread
 
@@ -28,8 +29,11 @@ class StreamWorker(Thread):
             self.queue.task_done()
 
     def mkdir(self, directory):
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+        try:
+            os.mkdir(directory)
+        except OSError as err:
+            if err.errno == errno.EEXIST and os.path.isdir(directory):
+                pass
 
     def save(self, save_path, stream_reuslt):
         result_id    = stream_reuslt['id']
