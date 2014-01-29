@@ -32,9 +32,11 @@ class StreamWorker(Thread):
             os.makedirs(directory)
 
     def save(self, save_path, stream_reuslt):
-        result_id   = stream_reuslt['id']
-        result_name = stream_reuslt['name'].encode("UTF-8")
-        result_src  = stream_reuslt['image']
+        result_id    = stream_reuslt['id']
+        result_name  = stream_reuslt['name'].encode("UTF-8")
+        result_src   = stream_reuslt['image']
+
+        debug_string = '{0:<8} ==> {1} ==> {2}'
 
         r = requests.get(result_src, stream=True)
 
@@ -43,6 +45,6 @@ class StreamWorker(Thread):
                 for chunk in r.iter_content():
                     f.write(chunk)
 
-            self.robot.logger.debug('Saving ==> {0} ==> {1}'.format(result_id, result_name))
+            self.robot.logger.debug(debug_string.format('Saving..', result_id, result_name))
         else:
-            self.robot.logger.debug('Failed ==> {0} ==> {1}'.format(result_id, result_name))
+            self.robot.logger.debug(debug_string.format('Failed..', result_id, result_name))
