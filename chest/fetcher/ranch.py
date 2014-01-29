@@ -17,6 +17,15 @@ class Ranch(object):
     def output(self, output):
         self.output = output
 
+    def start_worker(self):
+        for no in range(self.worker):
+            worker = StreamWorker(self.robot, no, self.stream_result_queue)
+            worker.output(self.output)
+            worker.setDaemon(True)
+            worker.start()
+
+            self.robot.logger.debug("WorkerNo ==> {0} ==> Started".format(no))
+
     def work(self, page=1):
         stream = self.curator.stream(page=page)
 
@@ -31,10 +40,3 @@ class Ranch(object):
         #     self.stram_result_queue.join()
 
         self.stream_result_queue.join()
-
-    def start_worker(self):
-        for no in range(self.worker):
-            worker = StreamWorker(self.robot, no, self.stream_result_queue)
-            worker.output(self.output)
-            worker.setDaemon(True)
-            worker.start()
