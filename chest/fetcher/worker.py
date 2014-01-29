@@ -20,23 +20,23 @@ class StreamWorker(Thread):
         while True:
             stream_result = self.queue.get()
 
-            image_src = stream_result['image']
-            extension  = os.path.splitext(image_src)[1]
+            extension  = os.path.splitext(stream_result['image'])[1]
             save_path  = "{0}/{1}{2}".format(self.output, stream_result['id'], extension)
 
             self.mkdir(self.output)
-            self.save(save_path, image_src, stream_result)
+            self.save(save_path, stream_result)
             self.queue.task_done()
 
     def mkdir(self, directory):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-    def save(self, save_path, src, stream_reuslt):
-        r = requests.get(src, stream=True)
-
+    def save(self, save_path, stream_reuslt):
         result_id   = stream_reuslt['id']
         result_name = stream_reuslt['name'].encode("UTF-8")
+        result_src  = stream_reuslt['image']
+
+        r = requests.get(result_src, stream=True)
 
         if r.status_code == 200:
             with open(save_path, 'wb') as f:
