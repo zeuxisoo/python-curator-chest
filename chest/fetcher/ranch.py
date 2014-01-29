@@ -39,4 +39,6 @@ class Ranch(object):
         # else:
         #     self.stram_result_queue.join()
 
+        self.robot.logger.debug("Queueing ==> calling join")
+
         self.stream_result_queue.join()
