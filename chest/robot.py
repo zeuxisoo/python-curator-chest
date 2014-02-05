@@ -33,9 +33,13 @@ class Robot(object):
     def output(self, output):
         self.output = os.path.realpath(output)
 
+    def pageno(self, pageno):
+        self.pageno = pageno
+
     def start(self):
         self.logger.debug("Worker: {0}".format(self.worker))
         self.logger.debug("Output: {0}".format(self.output))
+        self.logger.debug("Pageno: {0}".format(self.pageno))
 
         curator = Curator(self, self.token)
 
@@ -43,5 +47,7 @@ class Robot(object):
         ranch.worker(self.worker)
         ranch.output(self.output)
         ranch.start_worker()
-        ranch.work()
+        ranch.work(
+            page=self.pageno
+        )
 
