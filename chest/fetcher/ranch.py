@@ -2,6 +2,7 @@
 
 from Queue import Queue
 from .worker import StreamWorker
+from .watcher import Watcher
 
 class Ranch(object):
 
@@ -18,6 +19,7 @@ class Ranch(object):
         self.output = output
 
     def start_worker(self):
+        Watcher()
         for no in range(self.worker):
             worker = StreamWorker(self.robot, no, self.stream_result_queue)
             worker.output(self.output)
