@@ -36,10 +36,14 @@ class Robot(object):
     def pageno(self, pageno):
         self.pageno = pageno
 
+    def all_next_page(self, all_next_page):
+        self.all_next_page = all_next_page
+
     def start(self):
-        self.logger.debug("Worker: {0}".format(self.worker))
-        self.logger.debug("Output: {0}".format(self.output))
-        self.logger.debug("Pageno: {0}".format(self.pageno))
+        self.logger.debug("Worker     : {0}".format(self.worker))
+        self.logger.debug("Output     : {0}".format(self.output))
+        self.logger.debug("PageNo     : {0}".format(self.pageno))
+        self.logger.debug("AllNextPage: {0}".format(self.all_next_page))
 
         curator = Curator(self, self.token)
 
@@ -48,6 +52,7 @@ class Robot(object):
         ranch.output(self.output)
         ranch.start_worker()
         ranch.work(
-            page=self.pageno
+            page=self.pageno,
+            all_next_page=self.all_next_page
         )
 

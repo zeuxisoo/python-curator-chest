@@ -28,7 +28,7 @@ class Ranch(object):
 
             self.robot.logger.debug("WorkerNo ==> {0} ==> Started".format(no))
 
-    def work(self, page=1):
+    def work(self, page=1, all_next_page=False):
         stream = self.curator.stream(page=page)
 
         for result in stream['results']:
@@ -36,7 +36,7 @@ class Ranch(object):
 
             self.stream_result_queue.put(result)
 
-        if stream['next']:
+        if stream['next'] and all_next_page:
             next_page = page + 1
 
             self.robot.logger.debug("Paginate ==> {0}".format(next_page))
