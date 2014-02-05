@@ -40,7 +40,7 @@ class Ranch(object):
             next_page = page + 1
 
             self.robot.logger.debug("Paginate ==> {0}".format(next_page))
-            self.work(next_page)
+            self.work(next_page, all_next_page)
         else:
             self.robot.logger.debug("Queueing ==> calling join")
             self.stream_result_queue.join()
