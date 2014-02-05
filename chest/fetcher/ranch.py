@@ -36,11 +36,9 @@ class Ranch(object):
 
             self.stream_result_queue.put(result)
 
-        # if stream['next']:
-        #     self.download(page + 1)
-        # else:
-        #     self.stram_result_queue.join()
+        if stream['next']:
+            self.work(page + 1)
+        else:
+            self.robot.logger.debug("Queueing ==> calling join")
 
-        self.robot.logger.debug("Queueing ==> calling join")
-
-        self.stream_result_queue.join()
+            self.stram_result_queue.join()
