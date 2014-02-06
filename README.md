@@ -1,6 +1,19 @@
 ### Curator Chest
 
-A simple script for you save all girls from the stream in [cuator.im](http://curator.im/) :D
+A simple script for you save all girls from the stream in [cuator.im](http://curator.im/)
+
+### Install
+
+Clone the repository
+
+	git clone https://github.com/zeuxisoo/python-curator-chest.git
+
+Create the environment
+
+	cd python-curator-chest
+	virtualenv-2.7 --no-site-package venv
+	source venv/bin/activate
+	pip install -r requirements.txt
 
 ### Usage
 
